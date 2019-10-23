@@ -48,11 +48,9 @@ export default class MassMarks extends Vue {
   }
   handleStyle: StyleFn<Style | Array<Style>> = style => {
     if (Array.isArray(style)) {
-      style.forEach((s: Style) => {
-        s = this.handleSingleStyleObject(s)
-      })
+      style.forEach(this.handleSingleStyleObject)
     } else if (style) {
-      style = this.handleSingleStyleObject(style)
+      this.handleSingleStyleObject(style)
     }
     return style
   }
