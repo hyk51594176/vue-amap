@@ -37,9 +37,8 @@ export default class AMapComponent extends Vue {
   updated() {
     this.mapInit()
   }
-  async mapInit() {
+   mapInit() {
     if (!this.aMap) {
-      await AMapAPILoader.sdkReady()
       this.aMap = new AMap.Map(this.$refs.map, {
         resizeEnable: true,
         ...this.$attrs,
