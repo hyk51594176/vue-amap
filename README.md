@@ -11,5 +11,10 @@ import Vue from 'vue'
 
 import vueAmap from '@hanyk/vue-amap'
 
-Vue.use(vueAmap)
+Vue.use(vueAmap,{
+  key:xxxx,
+  plugin:['AMap.Geocoder'],
+  v: '1.4.15',
+  UIVersion: '1.0',
+})
 ```
