@@ -14,6 +14,7 @@ import {
 } from './components/Controls'
 import PathSimplifier from './components/PathSimplifier'
 import PathNavigator from './components/PathNavigator'
+import MassMarks from './components/MassMarks'
 let installed = false
 const install = (_Vue: typeof Vue, options: Config) => {
   if(installed)return
@@ -30,6 +31,7 @@ const install = (_Vue: typeof Vue, options: Config) => {
   _Vue.component('el-amap-infowindow', InfoWindow)
   _Vue.component('el-amap-pathsimplifier', PathSimplifier)
   _Vue.component('el-amap-pathnavigator', PathNavigator)
+  _Vue.component('el-amap-massmarks', MassMarks)
 }
 
 export default install
