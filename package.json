@@ -1,0 +1,45 @@
+{
+  "name": "@hanyk/vue-amap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/vue-aMap.common.js",
+  "module": "dist/vue-aMap.esm.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "prettier --write --parser typescript \"src/**/*.ts?(x)\""
+  },
+  "author": "51594176@qq.com",
+  "license": "ISC",
+  "keywords": [
+    "vue",
+    "aMap"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "rollup": "^1.25.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-typescript2": "^0.24.3",
+    "typescript": "^3.6.4",
+    "vue": "^2.6.10",
+    "vue-property-decorator": "^8.3.0"
+  }
+}
