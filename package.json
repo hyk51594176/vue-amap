@@ -1,6 +1,6 @@
 {
   "name": "@hanyk/vue-amap",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "基于高德地图封装vue 组件",
   "main": "dist/vue-aMap.common.js",
   "module": "dist/vue-aMap.esm.js",

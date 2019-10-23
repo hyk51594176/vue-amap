@@ -1,3 +1,4 @@
+
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import AMapAPILoader from '../loadMap'
 
@@ -5,56 +6,46 @@ import AMapAPILoader from '../loadMap'
   inheritAttrs: false
 })
 export default class AMapComponent extends Vue {
-  @Prop({ type: Number }) private zoom!: number
-  @Prop({ type: Array }) private center!: Array<number>
-  aMap!: any
-  loadError = ''
+  @Prop({ type: Number }) private zoom!:number
+  @Prop({ type: Array }) private center!:Array<number>
+  aMap!:any
   mapLoading = true
-  created() {
+  beforeCreate() {
     AMapAPILoader.sdkReady()
-      .then(() => {
-        this.$nextTick(this.mapInit)
-      })
-      .catch(() => {
-        this.loadError = '地图加载失败'
-      })
-      .finally(() => {
-        this.mapLoading = false
-      })
+  }
+  mounted () {
+    AMapAPILoader.sdkReady().then(this.mapInit).finally(() => {
+      this.mapLoading = false
+    })
   }
   @Watch('zoom')
-  zoomChange(val: number) {
+  zoomChange(val:number) {
     if (this.aMap) {
       this.aMap.setZoom(val)
     }
   }
   @Watch('center')
-  centerChange(val: Array<number>) {
+  centerChange(val:Array<number>) {
     if (this.aMap && val.length === 2) {
       this.aMap.setCenter(val)
     }
   }
   updated() {
-    this.mapInit()
+    AMapAPILoader.sdkReady().then(this.mapInit)
   }
-   mapInit() {
+  mapInit() {
     if (!this.aMap) {
-      this.aMap = new AMap.Map(this.$refs.map, {
+      this.aMap = new AMap.Map(this.$el, {
         resizeEnable: true,
         ...this.$attrs,
         zoom: this.zoom,
         center: this.center
       })
       Object.keys(this.$listeners).forEach(key => {
-        this.aMap.on(
-          key,
-          (<Function>this.$listeners[key]).bind(null, this.aMap)
-        )
+        this.aMap.on(key, (<Function> this.$listeners[key]).bind(null, this.aMap))
       })
     }
-    this.$children.forEach(component =>
-      component.$emit('COMPONENTINIT', this.aMap)
-    )
+    this.$children.forEach(component => component.$emit('COMPONENTINIT', this.aMap))
   }
   beforeDestroy() {
     if (this.aMap) {
@@ -64,29 +55,13 @@ export default class AMapComponent extends Vue {
       this.aMap.destroy()
     }
   }
-  getChildren() {
-    let children: any = null
-    if (this.loadError) {
-      children = '地图加载失败'
-    } else {
-      children = this.aMap ? this.$slots.default : null
-    }
-    return children
-  }
-  render(h: Vue.CreateElement) {
-    return h(
-      'div',
-      {
-        ref: 'map',
-        attrs: this.$attrs,
-        directives: [
-          {
-            name: 'loading',
-            value: this.mapLoading
-          }
-        ]
-      },
-      this.getChildren()
-    )
+  render (h:Vue.CreateElement) {
+    return h('div', {
+      attrs: this.$attrs,
+      directives: [{
+        name: 'loading',
+        value: this.mapLoading
+      }]
+    }, this.$slots.default)
   }
 }
