@@ -9,7 +9,9 @@
     "build": "rollup -c",
     "release": "npm run build && npm run pub",
     "pub": "npm publish --access public",
-    "lint": "prettier --write --parser typescript \"src/**/*.ts?(x)\""
+    "lint": "prettier --write --parser typescript \"src/**/*.ts?(x)\"",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "author": "51594176@qq.com",
   "license": "ISC",

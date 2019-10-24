@@ -157,6 +157,7 @@ export default class AmapMark extends Vue {
       this.aMapMarker.setPosition(
         Array.isArray(position) ? new AMap.LngLat(...position) : position
       )
+    this.$parent.$emit('setFitView')
   }
   @Watch('offset', { deep: true })
   setOffset(offset: [number, number]) {
