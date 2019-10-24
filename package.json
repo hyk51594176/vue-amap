@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@vue/babel-preset-jsx": "^1.0.0",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "rollup": "^1.25.1",
@@ -44,10 +45,14 @@
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.24.3",
+    "ts-loader": "^6.0.0",
     "typescript": "^3.6.4",
+    "vue-template-compiler": "^2.6.8",
     "vue": "^2.6.10",
     "vue-property-decorator": "^8.3.0",
     "vuepress": "^1.2.0",
-    "yorkie": "^2.0.0"
+    "yorkie": "^2.0.0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0"
   }
 }

@@ -1,0 +1,3 @@
+---
+title: 'control组件'
+---

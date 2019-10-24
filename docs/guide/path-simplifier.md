@@ -1,0 +1,3 @@
+---
+title: 'pathSimplifier组件'
+---
