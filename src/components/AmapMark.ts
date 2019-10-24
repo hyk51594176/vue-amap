@@ -1,17 +1,16 @@
-
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 interface Label {
-  content: string,
-  direction?: string,
+  content: string
+  direction?: string
   offset?: any
 }
 
 interface Icon {
-  image: string,
-  size: any,
-  imageSize?: any,
-  imageOffset?: any,
+  image: string
+  size: any
+  imageSize?: any
+  imageOffset?: any
   instance?: any
 }
 
@@ -36,9 +35,28 @@ export default class AmapMark extends Vue {
   @Prop({ type: Object }) private shape!: any
   @Prop() private extData!: any
 
-  mounted () {
-    this.$once('COMPONENTINIT', (aMap:any) => {
-      const { position, offset, anchor, label, animation, clickable, angle, zIndex, draggable, cursor, content, title, icon, shadow, shape, extData, $attrs, $listeners } = this
+  mounted() {
+    this.$once('COMPONENTINIT', (aMap: any) => {
+      const {
+        position,
+        offset,
+        anchor,
+        label,
+        animation,
+        clickable,
+        angle,
+        zIndex,
+        draggable,
+        cursor,
+        content,
+        title,
+        icon,
+        shadow,
+        shape,
+        extData,
+        $attrs,
+        $listeners
+      } = this
 
       if (label && Array.isArray(label.offset)) {
         label.offset = new AMap.Pixel(...label.offset)
@@ -46,8 +64,10 @@ export default class AmapMark extends Vue {
 
       if (icon && typeof icon !== 'string') {
         icon.size = new AMap.Size(...icon.size)
-        Array.isArray(icon.imageSize) && (icon.imageSize = new AMap.Size(...icon.imageSize))
-        Array.isArray(icon.imageOffset) && (icon.imageOffset = new AMap.Pixel(...icon.imageOffset))
+        Array.isArray(icon.imageSize) &&
+          (icon.imageSize = new AMap.Size(...icon.imageSize))
+        Array.isArray(icon.imageOffset) &&
+          (icon.imageOffset = new AMap.Pixel(...icon.imageOffset))
         icon.instance = new AMap.Icon(icon)
       }
 
@@ -72,68 +92,80 @@ export default class AmapMark extends Vue {
         offset: Array.isArray(offset) ? new AMap.Pixel(...offset) : offset
       })
       Object.keys($listeners).forEach(key => {
-        this.aMapMarker.on(key, (<Function> $listeners[key]).bind(null, { marker: this.aMapMarker, aMap }))
+        this.aMapMarker.on(
+          key,
+          (<Function>$listeners[key]).bind(null, {
+            marker: this.aMapMarker,
+            aMap
+          })
+        )
       })
       this.aMap.add(this.aMapMarker)
       this.$parent.$emit('setFitView')
     })
   }
   @Watch('anchor')
-  setAnchor (anchor: string) {
+  setAnchor(anchor: string) {
     this.aMapMarker && this.aMapMarker.setAnchor(anchor)
   }
   @Watch('animation')
-  setAnimation (animation: string) {
+  setAnimation(animation: string) {
     this.aMapMarker && this.aMapMarker.setAnimation(animation)
   }
   @Watch('clickable')
-  setClickable (clickable: boolean) {
+  setClickable(clickable: boolean) {
     this.aMapMarker && this.aMapMarker.setClickable(clickable)
   }
   @Watch('label', { deep: true })
-  setLabel (label: Label) {
+  setLabel(label: Label) {
     if (label && Array.isArray(label.offset)) {
       label.offset = AMap.Pixel(...label.offset)
     }
     this.aMapMarker && this.aMapMarker.setLabel(label)
   }
   @Watch('angle')
-  setAngle (angle: number) {
+  setAngle(angle: number) {
     this.aMapMarker && this.aMapMarker.setAngle(angle)
   }
   @Watch('zIndex')
-  setzIndex (zIndex: number) {
+  setzIndex(zIndex: number) {
     this.aMapMarker && this.aMapMarker.setzIndex(zIndex)
   }
   @Watch('draggable')
-  setDraggable (draggable: boolean) {
+  setDraggable(draggable: boolean) {
     this.aMapMarker && this.aMapMarker.setDraggable(draggable)
   }
   @Watch('cursor')
-  setCursor (cursor: string) {
+  setCursor(cursor: string) {
     this.aMapMarker && this.aMapMarker.setCursor(cursor)
   }
   @Watch('content')
-  setContent (content: string | HTMLElement) {
+  setContent(content: string | HTMLElement) {
     this.aMapMarker && this.aMapMarker.setContent(content)
   }
   @Watch('title')
-  setTitle (title: string) {
+  setTitle(title: string) {
     this.aMapMarker && this.aMapMarker.setTitle(title)
   }
   @Watch('extData')
-  setExtData (extData: any) {
+  setExtData(extData: any) {
     this.aMapMarker && this.aMapMarker.setExtData(extData)
   }
   @Watch('position', { deep: true })
-  setPosition (position: [number, number]) {
-    this.aMapMarker && this.aMapMarker.setPosition(Array.isArray(position) ? new AMap.LngLat(...position) : position)
+  setPosition(position: [number, number]) {
+    this.aMapMarker &&
+      this.aMapMarker.setPosition(
+        Array.isArray(position) ? new AMap.LngLat(...position) : position
+      )
   }
   @Watch('offset', { deep: true })
-  setOffset (offset: [number, number]) {
-    this.aMapMarker && this.aMapMarker.setOffset(Array.isArray(offset) ? new AMap.Pixel(...offset) : offset)
+  setOffset(offset: [number, number]) {
+    this.aMapMarker &&
+      this.aMapMarker.setOffset(
+        Array.isArray(offset) ? new AMap.Pixel(...offset) : offset
+      )
   }
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.aMap && this.aMapMarker) {
       this.aMap.remove(this.aMapMarker)
       Object.keys(this.$listeners).forEach(key => {
@@ -141,7 +173,7 @@ export default class AmapMark extends Vue {
       })
     }
   }
-  render () {
+  render() {
     return null
   }
 }

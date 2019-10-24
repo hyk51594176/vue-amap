@@ -17,7 +17,7 @@ import PathNavigator from './components/PathNavigator'
 import MassMarks from './components/MassMarks'
 let installed = false
 const install = (_Vue: typeof Vue, options: Config) => {
-  if(installed)return
+  if (installed) return
   installed = true
   AMapLoader.setConfig(options)
   _Vue.component('el-amap', Amap)

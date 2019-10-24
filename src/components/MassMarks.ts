@@ -1,15 +1,15 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 interface Point {
-  lnglat: [number, number],
-  name: string,
+  lnglat: [number, number]
+  name: string
   style: number
 }
 
 interface Style {
-  anchor: any,
-  url: string,
-  size: any,
+  anchor: any
+  url: string
+  size: any
   rotation?: number
 }
 
@@ -23,8 +23,8 @@ export default class MassMarks extends Vue {
   massMarks!: any
   @Prop({ type: Array, required: true }) private data!: Array<Point>
   @Prop({ type: [Object, Array] }) private styles!: Style | Array<Style>
-  mounted () {
-    this.$once('COMPONENTINIT', (aMap:any) => {
+  mounted() {
+    this.$once('COMPONENTINIT', (aMap: any) => {
       let { $attrs, $listeners, data, styles } = this
       if (styles) {
         styles = this.handleStyle(styles)
@@ -36,13 +36,20 @@ export default class MassMarks extends Vue {
         style: styles
       })
       Object.keys($listeners).forEach(key => {
-        this.massMarks.on(key, (<Function> $listeners[key]).bind(null, { massMarks: this.massMarks, aMap }))
+        this.massMarks.on(
+          key,
+          (<Function>$listeners[key]).bind(null, {
+            massMarks: this.massMarks,
+            aMap
+          })
+        )
       })
       this.massMarks.setMap(this.aMap)
     })
   }
   handleSingleStyleObject: StyleFn<Style> = style => {
-    Array.isArray(style.anchor) && (style.anchor = new AMap.Pixel(...style.anchor))
+    Array.isArray(style.anchor) &&
+      (style.anchor = new AMap.Pixel(...style.anchor))
     Array.isArray(style.size) && (style.size = new AMap.Size(...style.size))
     return style
   }
@@ -55,15 +62,15 @@ export default class MassMarks extends Vue {
     return style
   }
   @Watch('data', { deep: true })
-  dataChange (val: Array<Point>) {
+  dataChange(val: Array<Point>) {
     this.massMarks && this.massMarks.setData(val)
   }
   @Watch('styles', { deep: true })
-  styleChange (val: Style | Array<Style>) {
+  styleChange(val: Style | Array<Style>) {
     val = this.handleStyle(val)
     this.massMarks && this.massMarks.setStyle(val)
   }
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.aMap && this.massMarks) {
       this.aMap.remove(this.massMarks)
       Object.keys(this.$listeners).forEach(key => {
@@ -71,7 +78,7 @@ export default class MassMarks extends Vue {
       })
     }
   }
-  render () {
+  render() {
     return null
   }
 }
