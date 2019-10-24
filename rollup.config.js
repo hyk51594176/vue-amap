@@ -1,8 +1,10 @@
-import path from 'path';
+import path from 'path'
 import ts from 'rollup-plugin-typescript2'
+import writeFile from './utils/index'
+writeFile()
 const resolve = p => path.resolve(__dirname, p)
-const name='vue-aMap'
-const config  = [
+const name = 'vue-aMap'
+const config = [
   {
     file: `dist/${name}.js`,
     format: 'umd',
@@ -23,9 +25,9 @@ const config  = [
   }
 ].map(genConfig)
 
-function genConfig (opts) {
+function genConfig(opts) {
   const config = {
-    input: "src/index.ts",
+    input: 'src/index.ts',
     external: ['vue-property-decorator'],
     output: {
       file: opts.file,
@@ -33,14 +35,14 @@ function genConfig (opts) {
       name: 'VueAMap',
       exports: 'named',
       globals: {
-        'vue-property-decorator':'VuePropertyDecorator'
+        'vue-property-decorator': 'VuePropertyDecorator'
       }
     },
-    plugins:[
+    plugins: [
       ts({
         check: true,
         tsconfig: resolve('tsconfig.json'),
-        cacheRoot: resolve('node_modules/.rts2_cache'),
+        cacheRoot: resolve('node_modules/.rts2_cache')
       })
     ]
   }

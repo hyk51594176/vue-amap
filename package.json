@@ -1,12 +1,13 @@
 {
   "name": "@hanyk/vue-amap",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "基于高德地图封装vue 组件",
   "main": "dist/vue-aMap.common.js",
   "module": "dist/vue-aMap.esm.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
+    "dev": "rollup -wc",
     "release": "npm run build && npm run pub",
     "pub": "npm publish --access public",
     "lint": "prettier --write --parser typescript \"src/**/*.ts?(x)\"",
@@ -38,7 +39,10 @@
   },
   "devDependencies": {
     "@vue/babel-preset-jsx": "^1.0.0",
+    "glob": "^7.1.5",
+    "i": "^0.3.6",
     "lint-staged": "^9.4.2",
+    "npm": "^6.12.0",
     "prettier": "^1.18.2",
     "rollup": "^1.25.1",
     "rollup-plugin-commonjs": "^10.1.0",
