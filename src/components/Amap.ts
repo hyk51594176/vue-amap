@@ -2,6 +2,17 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import AMapAPILoader from '../loadMap'
 
+const lazy = (fn:Function, time:number) => {
+  let timer = null as any
+  return (...args:any) => {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn(...args)
+      timer = null
+    }, time)
+  }
+}
+
 @Component({
   inheritAttrs: false
 })
@@ -17,6 +28,9 @@ export default class AMapComponent extends Vue {
     AMapAPILoader.sdkReady().then(this.mapInit).finally(() => {
       this.mapLoading = false
     })
+    this.$on('setFitView', lazy(() => {
+      this.aMap.setFitView()
+    }, 200))
   }
   @Watch('zoom')
   zoomChange(val:number) {

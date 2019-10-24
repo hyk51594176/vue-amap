@@ -75,6 +75,7 @@ export default class AmapMark extends Vue {
         this.aMapMarker.on(key, (<Function> $listeners[key]).bind(null, { marker: this.aMapMarker, aMap }))
       })
       this.aMap.add(this.aMapMarker)
+      this.$parent.$emit('setFitView')
     })
   }
   @Watch('anchor')

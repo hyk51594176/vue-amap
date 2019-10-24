@@ -43,6 +43,7 @@
     "rollup-plugin-typescript2": "^0.24.3",
     "typescript": "^3.6.4",
     "vue": "^2.6.10",
-    "vue-property-decorator": "^8.3.0"
+    "vue-property-decorator": "^8.3.0",
+    "vuepress": "^1.2.0"
   }
 }
