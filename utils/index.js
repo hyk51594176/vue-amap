@@ -9,7 +9,6 @@ export default function() {
     .sync('src/components/*.ts')
     .filter(f => !reg.test(f))
     .forEach(f => {
-      console.log(f)
       let names = f.split('/')
       let name = names[names.length - 1].replace('.ts', '')
       headerStr += `import ${name} from './${name}'\n`
