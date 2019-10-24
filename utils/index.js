@@ -1,12 +1,13 @@
 import glob from 'glob'
 import fs from 'fs'
 import path from 'path'
+let reg = /.*?(\/Controls\.ts|index\.ts)/g
 export default function() {
   let headerStr = ''
   let componentStr = ''
   glob
     .sync('src/components/*.ts')
-    .filter(f => !/.*?(\/Controls\.ts|index\.ts)/g.test(f))
+    .filter(f => !reg.test(f))
     .forEach(f => {
       console.log(f)
       let names = f.split('/')
