@@ -1,5 +1,5 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import AMapAPILoader from '../loadMap'
+import AMapAPILoader from '../lib/loadMap'
 
 const lazy = (fn: Function, time: number) => {
   let timer = null as any
@@ -60,15 +60,10 @@ export default class AMapComponent extends Vue {
         center: this.center
       })
       Object.keys(this.$listeners).forEach(key => {
-        this.aMap.on(
-          key,
-          (<Function>this.$listeners[key]).bind(null, this.aMap)
-        )
+        this.aMap.on(key, (<Function>this.$listeners[key]).bind(null, this.aMap))
       })
     }
-    this.$children.forEach(component =>
-      component.$emit('COMPONENTINIT', this.aMap)
-    )
+    this.$children.forEach(component => component.$emit('COMPONENTINIT', this.aMap))
   }
   beforeDestroy() {
     if (this.aMap) {

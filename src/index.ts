@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import regComponents from './components'
-import AMapLoader, { Config } from './loadMap'
+import AMapLoader, { Config } from './lib/loadMap'
 
 let installed = false
 const install = (_Vue: typeof Vue, options: Config) => {

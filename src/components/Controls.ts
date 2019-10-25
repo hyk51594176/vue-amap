@@ -1,5 +1,5 @@
 import { Component, Mixins, Prop } from 'vue-property-decorator'
-import { ControlMixin } from '../mixns'
+import { ControlMixin } from '../mixins'
 
 @Component
 export class ControlBar extends Mixins(ControlMixin) {

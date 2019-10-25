@@ -64,10 +64,8 @@ export default class AmapMark extends Vue {
 
       if (icon && typeof icon !== 'string') {
         icon.size = new AMap.Size(...icon.size)
-        Array.isArray(icon.imageSize) &&
-          (icon.imageSize = new AMap.Size(...icon.imageSize))
-        Array.isArray(icon.imageOffset) &&
-          (icon.imageOffset = new AMap.Pixel(...icon.imageOffset))
+        Array.isArray(icon.imageSize) && (icon.imageSize = new AMap.Size(...icon.imageSize))
+        Array.isArray(icon.imageOffset) && (icon.imageOffset = new AMap.Pixel(...icon.imageOffset))
         icon.instance = new AMap.Icon(icon)
       }
 
@@ -154,17 +152,13 @@ export default class AmapMark extends Vue {
   @Watch('position', { deep: true })
   setPosition(position: [number, number]) {
     this.aMapMarker &&
-      this.aMapMarker.setPosition(
-        Array.isArray(position) ? new AMap.LngLat(...position) : position
-      )
+      this.aMapMarker.setPosition(Array.isArray(position) ? new AMap.LngLat(...position) : position)
     this.$parent.$emit('setFitView')
   }
   @Watch('offset', { deep: true })
   setOffset(offset: [number, number]) {
     this.aMapMarker &&
-      this.aMapMarker.setOffset(
-        Array.isArray(offset) ? new AMap.Pixel(...offset) : offset
-      )
+      this.aMapMarker.setOffset(Array.isArray(offset) ? new AMap.Pixel(...offset) : offset)
   }
   beforeDestroy() {
     if (this.aMap && this.aMapMarker) {
