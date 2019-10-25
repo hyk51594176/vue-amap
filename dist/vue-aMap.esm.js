@@ -1,4 +1,4 @@
-import { Prop, Watch, Component, Vue, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Mixins, Prop, Watch } from 'vue-property-decorator'
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,6 +147,121 @@ var AMapAPILoader = /** @class */ (function() {
 })()
 var AMapLoader = new AMapAPILoader()
 
+var ControlMixin = /** @class */ (function(_super) {
+  __extends(ControlMixin, _super)
+  function ControlMixin() {
+    return (_super !== null && _super.apply(this, arguments)) || this
+  }
+  ControlMixin.prototype.created = function() {
+    var _this = this
+    this.$once('COMPONENTINIT', function(aMap) {
+      _this.aMap = aMap
+      if (AMapLoader.config.plugin.includes('AMap.' + _this.controlName)) {
+        _this.pluginInt()
+      } else {
+        AMap.plugin('AMap.' + _this.controlName, _this.pluginInt)
+      }
+    })
+  }
+  ControlMixin.prototype.pluginInt = function() {
+    var _this = this
+    this.control = new AMap[this.controlName](this.$attrs)
+    Object.keys(this.$listeners).forEach(function(key) {
+      var _a
+      _this.control.on(
+        key,
+        _this.$listeners[key].bind(
+          null,
+          ((_a = {}),
+          (_a[_this.controlName] = _this.control),
+          (_a.aMap = _this.aMap),
+          _a)
+        )
+      )
+    })
+    this.aMap.addControl(this.control)
+  }
+  ControlMixin.prototype.beforeDestroy = function() {
+    var _this = this
+    if (this.control && this.aMap) {
+      this.aMap.removeControl(this.control)
+      Object.keys(this.$listeners).forEach(function(key) {
+        _this.control.off(key, _this.$listeners[key])
+      })
+    }
+  }
+  ControlMixin.prototype.render = function() {
+    return null
+  }
+  ControlMixin = __decorate([Component], ControlMixin)
+  return ControlMixin
+})(Vue)
+
+var ControlBar = /** @class */ (function(_super) {
+  __extends(ControlBar, _super)
+  function ControlBar() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.controlName = 'ControlBar'
+    return _this
+  }
+  ControlBar = __decorate([Component], ControlBar)
+  return ControlBar
+})(Mixins(ControlMixin))
+var MapType = /** @class */ (function(_super) {
+  __extends(MapType, _super)
+  function MapType() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.controlName = 'MapType'
+    return _this
+  }
+  MapType = __decorate([Component], MapType)
+  return MapType
+})(Mixins(ControlMixin))
+var OverView = /** @class */ (function(_super) {
+  __extends(OverView, _super)
+  function OverView() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.controlName = 'OverView'
+    return _this
+  }
+  OverView = __decorate([Component], OverView)
+  return OverView
+})(Mixins(ControlMixin))
+var Scale = /** @class */ (function(_super) {
+  __extends(Scale, _super)
+  function Scale() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.controlName = 'Scale'
+    return _this
+  }
+  Scale = __decorate([Component], Scale)
+  return Scale
+})(Mixins(ControlMixin))
+var ToolBar = /** @class */ (function(_super) {
+  __extends(ToolBar, _super)
+  function ToolBar() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.controlName = 'ToolBar'
+    return _this
+  }
+  ToolBar = __decorate([Component], ToolBar)
+  return ToolBar
+})(Mixins(ControlMixin))
+var Control = /** @class */ (function(_super) {
+  __extends(Control, _super)
+  function Control() {
+    return (_super !== null && _super.apply(this, arguments)) || this
+  }
+  __decorate(
+    [Prop({ type: String, required: true })],
+    Control.prototype,
+    'controlName',
+    void 0
+  )
+  Control = __decorate([Component], Control)
+  return Control
+})(Mixins(ControlMixin))
+
 var lazy = function(fn, time) {
   var timer = null
   return function() {
@@ -253,6 +368,203 @@ var AMapComponent = /** @class */ (function(_super) {
     AMapComponent
   )
   return AMapComponent
+})(Vue)
+
+var Info = /** @class */ (function(_super) {
+  __extends(Info, _super)
+  function Info() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.nodeEl = undefined
+    _this.upTime = 0
+    return _this
+  }
+  Info.prototype.getEl = function(nodeEl) {
+    var _this = this
+    this.nodeEl = nodeEl
+    this.upTime++
+    return new Promise(function(resolve) {
+      _this.$nextTick(function() {
+        resolve(_this.$el)
+      })
+    })
+  }
+  Info.prototype.render = function(h) {
+    return h(
+      'div',
+      {
+        key: this.upTime
+      },
+      this.nodeEl
+    )
+  }
+  Info = __decorate([Component], Info)
+  return Info
+})(Vue)
+var InfoWindow = /** @class */ (function(_super) {
+  __extends(InfoWindow, _super)
+  function InfoWindow() {
+    var _this = (_super !== null && _super.apply(this, arguments)) || this
+    _this.infoVue = new Info().$mount()
+    return _this
+  }
+  InfoWindow.prototype.created = function() {
+    var _this = this
+    this.$once('COMPONENTINIT', function(aMap) {
+      var _a, _b
+      _this.aMap = aMap
+      var _c = _this,
+        content = _c.content,
+        offset = _c.offset,
+        position = _c.position,
+        anchor = _c.anchor,
+        $attrs = _c.$attrs,
+        size = _c.size,
+        isCustom = _c.isCustom
+      _this.infoWindow = new AMap.InfoWindow(
+        __assign(__assign({ autoMove: true }, $attrs), {
+          content: isCustom ? null : content,
+          position: position,
+          isCustom: isCustom,
+          anchor: anchor,
+          size: Array.isArray(size)
+            ? new ((_a = AMap.Size).bind.apply(
+                _a,
+                __spreadArrays([void 0], size)
+              ))()
+            : size,
+          offset: Array.isArray(offset)
+            ? new ((_b = AMap.Pixel).bind.apply(
+                _b,
+                __spreadArrays([void 0], offset)
+              ))()
+            : offset
+        })
+      )
+      _this.toggle()
+      _this.setCustomContent()
+      _this.infoWindow.on('close', _this.closeHandler)
+      _this.infoWindow.on('open', _this.openHandler)
+      Object.keys(_this.$listeners).forEach(function(key) {
+        _this.infoWindow.on(
+          key,
+          _this.$listeners[key].bind(null, {
+            infoWindow: _this.infoWindow,
+            aMap: aMap
+          })
+        )
+      })
+    })
+  }
+  InfoWindow.prototype.setContent = function(val) {
+    if (this.infoWindow && !this.isCustom) {
+      this.infoWindow.setContent(val)
+    }
+  }
+  InfoWindow.prototype.setPosition = function(val) {
+    if (this.infoWindow) {
+      this.infoWindow.setPosition(val)
+    }
+  }
+  InfoWindow.prototype.setAnchor = function(val) {
+    if (this.infoWindow) {
+      this.infoWindow.setAnchor(val)
+    }
+  }
+  InfoWindow.prototype.setisOpen = function() {
+    if (this.infoWindow) {
+      this.toggle()
+    }
+  }
+  InfoWindow.prototype.setSize = function(val) {
+    var _a
+    if (this.infoWindow) {
+      this.infoWindow.setSize(
+        Array.isArray(val)
+          ? new ((_a = AMap.Size).bind.apply(
+              _a,
+              __spreadArrays([void 0], val)
+            ))()
+          : val
+      )
+    }
+  }
+  InfoWindow.prototype.closeHandler = function() {
+    this.$emit('update:isOpen', false)
+  }
+  InfoWindow.prototype.openHandler = function() {
+    this.$emit('update:isOpen', true)
+  }
+  InfoWindow.prototype.toggle = function() {
+    if (!this.aMap || !this.infoWindow) return
+    var _a = this,
+      isOpen = _a.isOpen,
+      position = _a.position
+    if (isOpen) {
+      this.infoWindow.open(this.aMap, position)
+    } else {
+      this.infoWindow.close()
+    }
+  }
+  InfoWindow.prototype.beforeDestroy = function() {
+    var _this = this
+    if (this.infoWindow && this.aMap) {
+      Object.keys(this.$listeners).forEach(function(key) {
+        _this.infoWindow.off(key, _this.$listeners[key])
+      })
+      this.infoWindow.off('close', this.closeHandler)
+      this.infoWindow.off('open', this.openHandler)
+      this.aMap.clearInfoWindow()
+      this.infoVue.$destroy()
+    }
+  }
+  InfoWindow.prototype.setCustomContent = function() {
+    var _this = this
+    if (this.isCustom && this.infoWindow) {
+      this.infoVue.getEl(this.$slots.default).then(function(el) {
+        _this.infoWindow.setContent(el)
+      })
+    }
+  }
+  InfoWindow.prototype.updated = function() {
+    this.setCustomContent()
+  }
+  InfoWindow.prototype.render = function() {
+    return null
+  }
+  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'position', void 0)
+  __decorate([Prop({ type: String })], InfoWindow.prototype, 'content', void 0)
+  __decorate([Prop({ type: String })], InfoWindow.prototype, 'anchor', void 0)
+  __decorate(
+    [Prop({ type: Boolean, default: false })],
+    InfoWindow.prototype,
+    'isOpen',
+    void 0
+  )
+  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'offset', void 0)
+  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'size', void 0)
+  __decorate(
+    [Prop({ type: Boolean, default: true })],
+    InfoWindow.prototype,
+    'isCustom',
+    void 0
+  )
+  __decorate([Watch('content')], InfoWindow.prototype, 'setContent', null)
+  __decorate(
+    [Watch('position', { deep: true })],
+    InfoWindow.prototype,
+    'setPosition',
+    null
+  )
+  __decorate([Watch('anchor')], InfoWindow.prototype, 'setAnchor', null)
+  __decorate([Watch('isOpen')], InfoWindow.prototype, 'setisOpen', null)
+  __decorate(
+    [Watch('size', { deep: true })],
+    InfoWindow.prototype,
+    'setSize',
+    null
+  )
+  InfoWindow = __decorate([Component], InfoWindow)
+  return InfoWindow
 })(Vue)
 
 var AmapMark = /** @class */ (function(_super) {
@@ -494,317 +806,197 @@ var AmapMark = /** @class */ (function(_super) {
   return AmapMark
 })(Vue)
 
-var Info = /** @class */ (function(_super) {
-  __extends(Info, _super)
-  function Info() {
+var MassMarks = /** @class */ (function(_super) {
+  __extends(MassMarks, _super)
+  function MassMarks() {
     var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.nodeEl = undefined
-    _this.upTime = 0
+    _this.handleSingleStyleObject = function(style) {
+      var _a, _b
+      Array.isArray(style.anchor) &&
+        (style.anchor = new ((_a = AMap.Pixel).bind.apply(
+          _a,
+          __spreadArrays([void 0], style.anchor)
+        ))())
+      Array.isArray(style.size) &&
+        (style.size = new ((_b = AMap.Size).bind.apply(
+          _b,
+          __spreadArrays([void 0], style.size)
+        ))())
+      return style
+    }
+    _this.handleStyle = function(style) {
+      if (Array.isArray(style)) {
+        style.forEach(_this.handleSingleStyleObject)
+      } else if (style) {
+        _this.handleSingleStyleObject(style)
+      }
+      return style
+    }
     return _this
   }
-  Info.prototype.getEl = function(nodeEl) {
-    var _this = this
-    this.nodeEl = nodeEl
-    this.upTime++
-    return new Promise(function(resolve) {
-      _this.$nextTick(function() {
-        resolve(_this.$el)
-      })
-    })
-  }
-  Info.prototype.render = function(h) {
-    return h(
-      'div',
-      {
-        key: this.upTime
-      },
-      this.nodeEl
-    )
-  }
-  Info = __decorate([Component], Info)
-  return Info
-})(Vue)
-var InfoWindow = /** @class */ (function(_super) {
-  __extends(InfoWindow, _super)
-  function InfoWindow() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.infoVue = new Info().$mount()
-    return _this
-  }
-  InfoWindow.prototype.created = function() {
+  MassMarks.prototype.mounted = function() {
     var _this = this
     this.$once('COMPONENTINIT', function(aMap) {
-      var _a, _b
+      var _a = _this,
+        $attrs = _a.$attrs,
+        $listeners = _a.$listeners,
+        data = _a.data,
+        styles = _a.styles
+      if (styles) {
+        styles = _this.handleStyle(styles)
+      }
       _this.aMap = aMap
-      var _c = _this,
-        content = _c.content,
-        offset = _c.offset,
-        position = _c.position,
-        anchor = _c.anchor,
-        $attrs = _c.$attrs,
-        size = _c.size,
-        isCustom = _c.isCustom
-      _this.infoWindow = new AMap.InfoWindow(
-        __assign(__assign({ autoMove: true }, $attrs), {
-          content: isCustom ? null : content,
-          position: position,
-          isCustom: isCustom,
-          anchor: anchor,
-          size: Array.isArray(size)
-            ? new ((_a = AMap.Size).bind.apply(
-                _a,
-                __spreadArrays([void 0], size)
-              ))()
-            : size,
-          offset: Array.isArray(offset)
-            ? new ((_b = AMap.Pixel).bind.apply(
-                _b,
-                __spreadArrays([void 0], offset)
-              ))()
-            : offset
-        })
+      _this.massMarks = new AMap.MassMarks(
+        data,
+        __assign(__assign({}, $attrs), { style: styles })
       )
-      _this.toggle()
-      _this.setCustomContent()
-      _this.infoWindow.on('close', _this.closeHandler)
-      _this.infoWindow.on('open', _this.openHandler)
-      Object.keys(_this.$listeners).forEach(function(key) {
-        _this.infoWindow.on(
+      Object.keys($listeners).forEach(function(key) {
+        _this.massMarks.on(
           key,
-          _this.$listeners[key].bind(null, {
-            infoWindow: _this.infoWindow,
+          $listeners[key].bind(null, {
+            massMarks: _this.massMarks,
             aMap: aMap
           })
         )
       })
+      _this.massMarks.setMap(_this.aMap)
     })
   }
-  InfoWindow.prototype.setContent = function(val) {
-    if (this.infoWindow && !this.isCustom) {
-      this.infoWindow.setContent(val)
-    }
+  MassMarks.prototype.dataChange = function(val) {
+    this.massMarks && this.massMarks.setData(val)
   }
-  InfoWindow.prototype.setPosition = function(val) {
-    if (this.infoWindow) {
-      this.infoWindow.setPosition(val)
-    }
+  MassMarks.prototype.styleChange = function(val) {
+    val = this.handleStyle(val)
+    this.massMarks && this.massMarks.setStyle(val)
   }
-  InfoWindow.prototype.setAnchor = function(val) {
-    if (this.infoWindow) {
-      this.infoWindow.setAnchor(val)
-    }
-  }
-  InfoWindow.prototype.setisOpen = function() {
-    if (this.infoWindow) {
-      this.toggle()
-    }
-  }
-  InfoWindow.prototype.setSize = function(val) {
-    var _a
-    if (this.infoWindow) {
-      this.infoWindow.setSize(
-        Array.isArray(val)
-          ? new ((_a = AMap.Size).bind.apply(
-              _a,
-              __spreadArrays([void 0], val)
-            ))()
-          : val
-      )
-    }
-  }
-  InfoWindow.prototype.closeHandler = function() {
-    this.$emit('update:isOpen', false)
-  }
-  InfoWindow.prototype.openHandler = function() {
-    this.$emit('update:isOpen', true)
-  }
-  InfoWindow.prototype.toggle = function() {
-    if (!this.aMap || !this.infoWindow) return
-    var _a = this,
-      isOpen = _a.isOpen,
-      position = _a.position
-    if (isOpen) {
-      this.infoWindow.open(this.aMap, position)
-    } else {
-      this.infoWindow.close()
-    }
-  }
-  InfoWindow.prototype.beforeDestroy = function() {
+  MassMarks.prototype.beforeDestroy = function() {
     var _this = this
-    if (this.infoWindow && this.aMap) {
+    if (this.aMap && this.massMarks) {
+      this.aMap.remove(this.massMarks)
       Object.keys(this.$listeners).forEach(function(key) {
-        _this.infoWindow.off(key, _this.$listeners[key])
-      })
-      this.infoWindow.off('close', this.closeHandler)
-      this.infoWindow.off('open', this.openHandler)
-      this.aMap.clearInfoWindow()
-      this.infoVue.$destroy()
-    }
-  }
-  InfoWindow.prototype.setCustomContent = function() {
-    var _this = this
-    if (this.isCustom && this.infoWindow) {
-      this.infoVue.getEl(this.$slots.default).then(function(el) {
-        _this.infoWindow.setContent(el)
+        _this.massMarks.off(key, _this.$listeners[key])
       })
     }
   }
-  InfoWindow.prototype.updated = function() {
-    this.setCustomContent()
-  }
-  InfoWindow.prototype.render = function() {
+  MassMarks.prototype.render = function() {
     return null
   }
-  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'position', void 0)
-  __decorate([Prop({ type: String })], InfoWindow.prototype, 'content', void 0)
-  __decorate([Prop({ type: String })], InfoWindow.prototype, 'anchor', void 0)
   __decorate(
-    [Prop({ type: Boolean, default: false })],
-    InfoWindow.prototype,
-    'isOpen',
+    [Prop({ type: Array, required: true })],
+    MassMarks.prototype,
+    'data',
     void 0
   )
-  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'offset', void 0)
-  __decorate([Prop({ type: Array })], InfoWindow.prototype, 'size', void 0)
   __decorate(
-    [Prop({ type: Boolean, default: true })],
-    InfoWindow.prototype,
-    'isCustom',
+    [Prop({ type: [Object, Array] })],
+    MassMarks.prototype,
+    'styles',
     void 0
   )
-  __decorate([Watch('content')], InfoWindow.prototype, 'setContent', null)
   __decorate(
-    [Watch('position', { deep: true })],
-    InfoWindow.prototype,
-    'setPosition',
+    [Watch('data', { deep: true })],
+    MassMarks.prototype,
+    'dataChange',
     null
   )
-  __decorate([Watch('anchor')], InfoWindow.prototype, 'setAnchor', null)
-  __decorate([Watch('isOpen')], InfoWindow.prototype, 'setisOpen', null)
   __decorate(
-    [Watch('size', { deep: true })],
-    InfoWindow.prototype,
-    'setSize',
+    [Watch('styles', { deep: true })],
+    MassMarks.prototype,
+    'styleChange',
     null
   )
-  InfoWindow = __decorate([Component], InfoWindow)
-  return InfoWindow
+  MassMarks = __decorate([Component], MassMarks)
+  return MassMarks
 })(Vue)
 
-var ControlMixin = /** @class */ (function(_super) {
-  __extends(ControlMixin, _super)
-  function ControlMixin() {
+var PathNavigator = /** @class */ (function(_super) {
+  __extends(PathNavigator, _super)
+  function PathNavigator() {
     return (_super !== null && _super.apply(this, arguments)) || this
   }
-  ControlMixin.prototype.created = function() {
+  PathNavigator.prototype.created = function() {
     var _this = this
-    this.$once('COMPONENTINIT', function(aMap) {
-      _this.aMap = aMap
-      if (AMapLoader.config.plugin.includes('AMap.' + _this.controlName)) {
-        _this.pluginInt()
-      } else {
-        AMap.plugin('AMap.' + _this.controlName, _this.pluginInt)
+    this.$on('DATACHANGE', function(data) {
+      if (_this.pathNavigator) {
+        _this.close()
       }
+      _this.createPathNavigator(data)
+    })
+    this.$once('COMPONENTINIT', function(data) {
+      _this.createPathNavigator(data)
     })
   }
-  ControlMixin.prototype.pluginInt = function() {
+  PathNavigator.prototype.createPathNavigator = function(_a) {
     var _this = this
-    this.control = new AMap[this.controlName](this.$attrs)
+    var count = _a.count,
+      pathSimplifier = _a.pathSimplifier,
+      PathSimplifier = _a.PathSimplifier
+    var _b = this,
+      $attrs = _b.$attrs,
+      speed = _b.speed,
+      range = _b.range,
+      getOptions = _b.getOptions,
+      index = _b.index
+    var options = __assign(__assign({}, $attrs), { speed: speed, range: range })
+    if (getOptions) {
+      options = __assign(
+        __assign({}, options),
+        getOptions(PathSimplifier) || {}
+      )
+    }
+    var num = count
+    if (index !== undefined) num = index
+    this.pathNavigator = pathSimplifier.createPathNavigator(num, options)
+    this.pathNavigator.start()
     Object.keys(this.$listeners).forEach(function(key) {
-      var _a
-      _this.control.on(
+      _this.pathNavigator.on(
         key,
-        _this.$listeners[key].bind(
-          null,
-          ((_a = {}),
-          (_a[_this.controlName] = _this.control),
-          (_a.aMap = _this.aMap),
-          _a)
-        )
+        _this.$listeners[key].bind(null, {
+          pathNavigator: _this.pathNavigator,
+          pathSimplifier: pathSimplifier
+        })
       )
     })
-    this.aMap.addControl(this.control)
   }
-  ControlMixin.prototype.beforeDestroy = function() {
-    var _this = this
-    if (this.control && this.aMap) {
-      this.aMap.removeControl(this.control)
-      Object.keys(this.$listeners).forEach(function(key) {
-        _this.control.off(key, _this.$listeners[key])
-      })
+  PathNavigator.prototype.setSpeed = function(val) {
+    if (this.pathNavigator) {
+      this.pathNavigator.setSpeed(val)
     }
   }
-  ControlMixin.prototype.render = function() {
+  PathNavigator.prototype.setRange = function(val) {
+    if (this.pathNavigator) {
+      this.pathNavigator.setRange(val)
+    }
+  }
+  PathNavigator.prototype.close = function() {
+    var _this = this
+    if (this.pathNavigator) {
+      Object.keys(this.$listeners).forEach(function(key) {
+        _this.pathNavigator.off(key, _this.$listeners[key])
+      })
+      this.pathNavigator.destroy()
+    }
+  }
+  PathNavigator.prototype.beforeDestroy = function() {
+    this.close()
+  }
+  PathNavigator.prototype.render = function() {
     return null
   }
-  ControlMixin = __decorate([Component], ControlMixin)
-  return ControlMixin
-})(Vue)
-
-var ControlBar = /** @class */ (function(_super) {
-  __extends(ControlBar, _super)
-  function ControlBar() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.controlName = 'ControlBar'
-    return _this
-  }
-  ControlBar = __decorate([Component], ControlBar)
-  return ControlBar
-})(Mixins(ControlMixin))
-var MapType = /** @class */ (function(_super) {
-  __extends(MapType, _super)
-  function MapType() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.controlName = 'MapType'
-    return _this
-  }
-  MapType = __decorate([Component], MapType)
-  return MapType
-})(Mixins(ControlMixin))
-var OverView = /** @class */ (function(_super) {
-  __extends(OverView, _super)
-  function OverView() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.controlName = 'OverView'
-    return _this
-  }
-  OverView = __decorate([Component], OverView)
-  return OverView
-})(Mixins(ControlMixin))
-var Scale = /** @class */ (function(_super) {
-  __extends(Scale, _super)
-  function Scale() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.controlName = 'Scale'
-    return _this
-  }
-  Scale = __decorate([Component], Scale)
-  return Scale
-})(Mixins(ControlMixin))
-var ToolBar = /** @class */ (function(_super) {
-  __extends(ToolBar, _super)
-  function ToolBar() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.controlName = 'ToolBar'
-    return _this
-  }
-  ToolBar = __decorate([Component], ToolBar)
-  return ToolBar
-})(Mixins(ControlMixin))
-var Control = /** @class */ (function(_super) {
-  __extends(Control, _super)
-  function Control() {
-    return (_super !== null && _super.apply(this, arguments)) || this
-  }
+  __decorate([Prop({ type: Number })], PathNavigator.prototype, 'speed', void 0)
+  __decorate([Prop({ type: Array })], PathNavigator.prototype, 'range', void 0)
   __decorate(
-    [Prop({ type: String, required: true })],
-    Control.prototype,
-    'controlName',
+    [Prop({ type: Function })],
+    PathNavigator.prototype,
+    'getOptions',
     void 0
   )
-  Control = __decorate([Component], Control)
-  return Control
-})(Mixins(ControlMixin))
+  __decorate([Prop({ type: Number })], PathNavigator.prototype, 'index', void 0)
+  __decorate([Watch('speed')], PathNavigator.prototype, 'setSpeed', null)
+  __decorate([Watch('range')], PathNavigator.prototype, 'setRange', null)
+  PathNavigator = __decorate([Component], PathNavigator)
+  return PathNavigator
+})(Vue)
 
 var PathSimplifier = /** @class */ (function(_super) {
   __extends(PathSimplifier, _super)
@@ -915,215 +1107,27 @@ var PathSimplifier = /** @class */ (function(_super) {
   return PathSimplifier
 })(Vue)
 
-var PathNavigator = /** @class */ (function(_super) {
-  __extends(PathNavigator, _super)
-  function PathNavigator() {
-    return (_super !== null && _super.apply(this, arguments)) || this
-  }
-  PathNavigator.prototype.created = function() {
-    var _this = this
-    this.$on('DATACHANGE', function(data) {
-      if (_this.pathNavigator) {
-        _this.close()
-      }
-      _this.createPathNavigator(data)
-    })
-    this.$once('COMPONENTINIT', function(data) {
-      _this.createPathNavigator(data)
-    })
-  }
-  PathNavigator.prototype.createPathNavigator = function(_a) {
-    var _this = this
-    var count = _a.count,
-      pathSimplifier = _a.pathSimplifier,
-      PathSimplifier = _a.PathSimplifier
-    var _b = this,
-      $attrs = _b.$attrs,
-      speed = _b.speed,
-      range = _b.range,
-      getOptions = _b.getOptions,
-      index = _b.index
-    var options = __assign(__assign({}, $attrs), { speed: speed, range: range })
-    if (getOptions) {
-      options = __assign(
-        __assign({}, options),
-        getOptions(PathSimplifier) || {}
-      )
-    }
-    var num = count
-    if (index !== undefined) num = index
-    this.pathNavigator = pathSimplifier.createPathNavigator(num, options)
-    this.pathNavigator.start()
-    Object.keys(this.$listeners).forEach(function(key) {
-      _this.pathNavigator.on(
-        key,
-        _this.$listeners[key].bind(null, {
-          pathNavigator: _this.pathNavigator,
-          pathSimplifier: pathSimplifier
-        })
-      )
-    })
-  }
-  PathNavigator.prototype.setSpeed = function(val) {
-    if (this.pathNavigator) {
-      this.pathNavigator.setSpeed(val)
-    }
-  }
-  PathNavigator.prototype.setRange = function(val) {
-    if (this.pathNavigator) {
-      this.pathNavigator.setRange(val)
-    }
-  }
-  PathNavigator.prototype.close = function() {
-    var _this = this
-    if (this.pathNavigator) {
-      Object.keys(this.$listeners).forEach(function(key) {
-        _this.pathNavigator.off(key, _this.$listeners[key])
-      })
-      this.pathNavigator.destroy()
-    }
-  }
-  PathNavigator.prototype.beforeDestroy = function() {
-    this.close()
-  }
-  PathNavigator.prototype.render = function() {
-    return null
-  }
-  __decorate([Prop({ type: Number })], PathNavigator.prototype, 'speed', void 0)
-  __decorate([Prop({ type: Array })], PathNavigator.prototype, 'range', void 0)
-  __decorate(
-    [Prop({ type: Function })],
-    PathNavigator.prototype,
-    'getOptions',
-    void 0
-  )
-  __decorate([Prop({ type: Number })], PathNavigator.prototype, 'index', void 0)
-  __decorate([Watch('speed')], PathNavigator.prototype, 'setSpeed', null)
-  __decorate([Watch('range')], PathNavigator.prototype, 'setRange', null)
-  PathNavigator = __decorate([Component], PathNavigator)
-  return PathNavigator
-})(Vue)
-
-var MassMarks = /** @class */ (function(_super) {
-  __extends(MassMarks, _super)
-  function MassMarks() {
-    var _this = (_super !== null && _super.apply(this, arguments)) || this
-    _this.handleSingleStyleObject = function(style) {
-      var _a, _b
-      Array.isArray(style.anchor) &&
-        (style.anchor = new ((_a = AMap.Pixel).bind.apply(
-          _a,
-          __spreadArrays([void 0], style.anchor)
-        ))())
-      Array.isArray(style.size) &&
-        (style.size = new ((_b = AMap.Size).bind.apply(
-          _b,
-          __spreadArrays([void 0], style.size)
-        ))())
-      return style
-    }
-    _this.handleStyle = function(style) {
-      if (Array.isArray(style)) {
-        style.forEach(_this.handleSingleStyleObject)
-      } else if (style) {
-        _this.handleSingleStyleObject(style)
-      }
-      return style
-    }
-    return _this
-  }
-  MassMarks.prototype.mounted = function() {
-    var _this = this
-    this.$once('COMPONENTINIT', function(aMap) {
-      var _a = _this,
-        $attrs = _a.$attrs,
-        $listeners = _a.$listeners,
-        data = _a.data,
-        styles = _a.styles
-      if (styles) {
-        styles = _this.handleStyle(styles)
-      }
-      _this.aMap = aMap
-      _this.massMarks = new AMap.MassMarks(
-        data,
-        __assign(__assign({}, $attrs), { style: styles })
-      )
-      Object.keys($listeners).forEach(function(key) {
-        _this.massMarks.on(
-          key,
-          $listeners[key].bind(null, {
-            massMarks: _this.massMarks,
-            aMap: aMap
-          })
-        )
-      })
-      _this.massMarks.setMap(_this.aMap)
-    })
-  }
-  MassMarks.prototype.dataChange = function(val) {
-    this.massMarks && this.massMarks.setData(val)
-  }
-  MassMarks.prototype.styleChange = function(val) {
-    val = this.handleStyle(val)
-    this.massMarks && this.massMarks.setStyle(val)
-  }
-  MassMarks.prototype.beforeDestroy = function() {
-    var _this = this
-    if (this.aMap && this.massMarks) {
-      this.aMap.remove(this.massMarks)
-      Object.keys(this.$listeners).forEach(function(key) {
-        _this.massMarks.off(key, _this.$listeners[key])
-      })
-    }
-  }
-  MassMarks.prototype.render = function() {
-    return null
-  }
-  __decorate(
-    [Prop({ type: Array, required: true })],
-    MassMarks.prototype,
-    'data',
-    void 0
-  )
-  __decorate(
-    [Prop({ type: [Object, Array] })],
-    MassMarks.prototype,
-    'styles',
-    void 0
-  )
-  __decorate(
-    [Watch('data', { deep: true })],
-    MassMarks.prototype,
-    'dataChange',
-    null
-  )
-  __decorate(
-    [Watch('styles', { deep: true })],
-    MassMarks.prototype,
-    'styleChange',
-    null
-  )
-  MassMarks = __decorate([Component], MassMarks)
-  return MassMarks
-})(Vue)
+function regComponents(_Vue) {
+  _Vue.component('el-amap-controlbar', ControlBar)
+  _Vue.component('el-amap-toolbar', ToolBar)
+  _Vue.component('el-amap-maptype', MapType)
+  _Vue.component('el-amap-overview', OverView)
+  _Vue.component('el-amap-scale', Scale)
+  _Vue.component('el-amap-control', Control)
+  _Vue.component('el-amap', AMapComponent)
+  _Vue.component('el-amap-infowindow', InfoWindow)
+  _Vue.component('el-amap-mark', AmapMark)
+  _Vue.component('el-amap-massmarks', MassMarks)
+  _Vue.component('el-amap-pathnavigator', PathNavigator)
+  _Vue.component('el-amap-pathsimplifier', PathSimplifier)
+}
 
 var installed = false
 var install = function(_Vue, options) {
   if (installed) return
   installed = true
   AMapLoader.setConfig(options)
-  _Vue.component('el-amap', AMapComponent)
-  _Vue.component('el-amap-mark', AmapMark)
-  _Vue.component('el-amap-maptype', MapType)
-  _Vue.component('el-amap-overview', OverView)
-  _Vue.component('el-amap-scale', Scale)
-  _Vue.component('el-amap-toolbar', ToolBar)
-  _Vue.component('el-amap-controlbar', ControlBar)
-  _Vue.component('el-amap-control', Control)
-  _Vue.component('el-amap-infowindow', InfoWindow)
-  _Vue.component('el-amap-pathsimplifier', PathSimplifier)
-  _Vue.component('el-amap-pathnavigator', PathNavigator)
-  _Vue.component('el-amap-massmarks', MassMarks)
+  regComponents(_Vue)
 }
 
 export default install

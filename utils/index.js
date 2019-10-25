@@ -1,7 +1,7 @@
 import glob from 'glob'
 import fs from 'fs'
 import path from 'path'
-let reg = /.*?(\/Controls\.ts|index\.ts)/g
+let reg = /.*?(\/Controls\.ts|index\.ts)/
 export default function() {
   let headerStr = ''
   let componentStr = ''
@@ -30,7 +30,7 @@ import {
   Control
 } from './Controls'
 ${headerStr}
-export default function(_Vue: typeof Vue) {
+export default function (_Vue: typeof Vue) {
   _Vue.component('el-amap-controlbar', ControlBar)
   _Vue.component('el-amap-toolbar', ToolBar)
   _Vue.component('el-amap-maptype', MapType)
