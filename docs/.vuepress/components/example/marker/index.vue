@@ -3,7 +3,6 @@
     style="height: 400px;"
     :zoom="zoom"
     :center="center"
-    @complete="complete"
   >
     <el-amap-mark
       v-for="marker in markers"
@@ -45,8 +44,8 @@ export default {
     }
   },
   methods: {
-    complete () {
-
+    markerClick (...args) {
+      console.log(args)
     }
   }
 }
