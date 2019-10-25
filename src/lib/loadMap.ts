@@ -68,15 +68,8 @@ class AMapAPILoader implements AMapAPILoaderInterfac {
     return (
       str +
       keys
-        .filter(key =>
-          Array.isArray(config[key]) ? config[key].length : config[key]
-        )
-        .map(
-          key =>
-            `${key}=${
-              Array.isArray(config[key]) ? config[key].join(',') : config[key]
-            }`
-        )
+        .filter(key => (Array.isArray(config[key]) ? config[key].length : config[key]))
+        .map(key => `${key}=${Array.isArray(config[key]) ? config[key].join(',') : config[key]}`)
         .join('&')
     )
   }

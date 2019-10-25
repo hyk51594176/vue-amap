@@ -1,5 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator'
-import loadMap from './loadMap'
+import loadMap from '../lib/loadMap'
 @Component
 export class ControlMixin extends Vue {
   control: any

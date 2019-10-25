@@ -1,12 +1,5 @@
 import { Vue } from 'vue-property-decorator'
-import {
-  ControlBar,
-  ToolBar,
-  MapType,
-  OverView,
-  Scale,
-  Control
-} from './Controls'
+import { ControlBar, ToolBar, MapType, OverView, Scale, Control } from './Controls'
 import Amap from './Amap'
 import InfoWindow from './InfoWindow'
 import Mark from './Mark'

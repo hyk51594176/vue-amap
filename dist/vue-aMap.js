@@ -3,8 +3,7 @@
     ? factory(exports, require('vue-property-decorator'))
     : typeof define === 'function' && define.amd
     ? define(['exports', 'vue-property-decorator'], factory)
-    : ((global = global || self),
-      factory((global.VueAMap = {}), global.VuePropertyDecorator))
+    : ((global = global || self), factory((global.VueAMap = {}), global.VuePropertyDecorator))
 })(this, function(exports, vuePropertyDecorator) {
   'use strict'
 
@@ -42,8 +41,7 @@
     function __() {
       this.constructor = d
     }
-    d.prototype =
-      b === null ? Object.create(b) : ((__.prototype = b.prototype), new __())
+    d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __())
   }
 
   var __assign = function() {
@@ -52,8 +50,7 @@
       function __assign(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
           s = arguments[i]
-          for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p]
+          for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p]
         }
         return t
       }
@@ -79,11 +76,9 @@
   }
 
   function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++)
-      s += arguments[i].length
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
-      for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-        r[k] = a[j]
+      for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j]
     return r
   }
 
@@ -117,10 +112,7 @@
             UIScript.type = 'text/javascript'
             UIScript.async = true
             UIScript.defer = true
-            UIScript.src =
-              'https://webapi.amap.com/ui/' +
-              _this.config.UIVersion +
-              '/main-async.js'
+            UIScript.src = 'https://webapi.amap.com/ui/' + _this.config.UIVersion + '/main-async.js'
             _this.scriptLoaded = true
             document.head.appendChild(UIScript)
             UIScript.onload = resolve
@@ -142,11 +134,7 @@
             return Array.isArray(config[key]) ? config[key].length : config[key]
           })
           .map(function(key) {
-            return (
-              key +
-              '=' +
-              (Array.isArray(config[key]) ? config[key].join(',') : config[key])
-            )
+            return key + '=' + (Array.isArray(config[key]) ? config[key].join(',') : config[key])
           })
           .join('&')
       )
@@ -180,10 +168,7 @@
           key,
           _this.$listeners[key].bind(
             null,
-            ((_a = {}),
-            (_a[_this.controlName] = _this.control),
-            (_a.aMap = _this.aMap),
-            _a)
+            ((_a = {}), (_a[_this.controlName] = _this.control), (_a.aMap = _this.aMap), _a)
           )
         )
       })
@@ -375,12 +360,7 @@
       'center',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('zoom')],
-      AMapComponent.prototype,
-      'zoomChange',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('zoom')], AMapComponent.prototype, 'zoomChange', null)
     __decorate(
       [vuePropertyDecorator.Watch('center')],
       AMapComponent.prototype,
@@ -455,16 +435,10 @@
             isCustom: isCustom,
             anchor: anchor,
             size: Array.isArray(size)
-              ? new ((_a = AMap.Size).bind.apply(
-                  _a,
-                  __spreadArrays([void 0], size)
-                ))()
+              ? new ((_a = AMap.Size).bind.apply(_a, __spreadArrays([void 0], size)))()
               : size,
             offset: Array.isArray(offset)
-              ? new ((_b = AMap.Pixel).bind.apply(
-                  _b,
-                  __spreadArrays([void 0], offset)
-                ))()
+              ? new ((_b = AMap.Pixel).bind.apply(_b, __spreadArrays([void 0], offset)))()
               : offset
           })
         )
@@ -508,10 +482,7 @@
       if (this.infoWindow) {
         this.infoWindow.setSize(
           Array.isArray(val)
-            ? new ((_a = AMap.Size).bind.apply(
-                _a,
-                __spreadArrays([void 0], val)
-              ))()
+            ? new ((_a = AMap.Size).bind.apply(_a, __spreadArrays([void 0], val)))()
             : val
         )
       }
@@ -583,48 +554,23 @@
       'isOpen',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Array })],
-      InfoWindow.prototype,
-      'offset',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Array })],
-      InfoWindow.prototype,
-      'size',
-      void 0
-    )
+    __decorate([vuePropertyDecorator.Prop({ type: Array })], InfoWindow.prototype, 'offset', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: Array })], InfoWindow.prototype, 'size', void 0)
     __decorate(
       [vuePropertyDecorator.Prop({ type: Boolean, default: true })],
       InfoWindow.prototype,
       'isCustom',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('content')],
-      InfoWindow.prototype,
-      'setContent',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('content')], InfoWindow.prototype, 'setContent', null)
     __decorate(
       [vuePropertyDecorator.Watch('position', { deep: true })],
       InfoWindow.prototype,
       'setPosition',
       null
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('anchor')],
-      InfoWindow.prototype,
-      'setAnchor',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('isOpen')],
-      InfoWindow.prototype,
-      'setisOpen',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('anchor')], InfoWindow.prototype, 'setAnchor', null)
+    __decorate([vuePropertyDecorator.Watch('isOpen')], InfoWindow.prototype, 'setisOpen', null)
     __decorate(
       [vuePropertyDecorator.Watch('size', { deep: true })],
       InfoWindow.prototype,
@@ -670,10 +616,7 @@
           ))()
         }
         if (icon && typeof icon !== 'string') {
-          icon.size = new ((_b = AMap.Size).bind.apply(
-            _b,
-            __spreadArrays([void 0], icon.size)
-          ))()
+          icon.size = new ((_b = AMap.Size).bind.apply(_b, __spreadArrays([void 0], icon.size)))()
           Array.isArray(icon.imageSize) &&
             (icon.imageSize = new ((_c = AMap.Size).bind.apply(
               _c,
@@ -711,10 +654,7 @@
             }),
             Array.isArray(offset)
               ? {
-                  offset: new ((_f = AMap.Pixel).bind.apply(
-                    _f,
-                    __spreadArrays([void 0], offset)
-                  ))()
+                  offset: new ((_f = AMap.Pixel).bind.apply(_f, __spreadArrays([void 0], offset)))()
                 }
               : {}
           )
@@ -773,10 +713,7 @@
       this.aMapMarker &&
         this.aMapMarker.setPosition(
           Array.isArray(position)
-            ? new ((_a = AMap.LngLat).bind.apply(
-                _a,
-                __spreadArrays([void 0], position)
-              ))()
+            ? new ((_a = AMap.LngLat).bind.apply(_a, __spreadArrays([void 0], position)))()
             : position
         )
       this.$parent.$emit('setFitView')
@@ -786,10 +723,7 @@
       this.aMapMarker &&
         this.aMapMarker.setOffset(
           Array.isArray(offset)
-            ? new ((_a = AMap.Pixel).bind.apply(
-                _a,
-                __spreadArrays([void 0], offset)
-              ))()
+            ? new ((_a = AMap.Pixel).bind.apply(_a, __spreadArrays([void 0], offset)))()
             : offset
         )
     }
@@ -811,18 +745,8 @@
       'position',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: String })],
-      AmapMark.prototype,
-      'anchor',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Array })],
-      AmapMark.prototype,
-      'offset',
-      void 0
-    )
+    __decorate([vuePropertyDecorator.Prop({ type: String })], AmapMark.prototype, 'anchor', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: Array })], AmapMark.prototype, 'offset', void 0)
     __decorate(
       [vuePropertyDecorator.Prop({ type: String })],
       AmapMark.prototype,
@@ -841,132 +765,42 @@
       'angle',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Object })],
-      AmapMark.prototype,
-      'label',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Number })],
-      AmapMark.prototype,
-      'zIndex',
-      void 0
-    )
+    __decorate([vuePropertyDecorator.Prop({ type: Object })], AmapMark.prototype, 'label', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: Number })], AmapMark.prototype, 'zIndex', void 0)
     __decorate(
       [vuePropertyDecorator.Prop({ type: Boolean, default: false })],
       AmapMark.prototype,
       'draggable',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: String })],
-      AmapMark.prototype,
-      'cursor',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: String })],
-      AmapMark.prototype,
-      'content',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: String })],
-      AmapMark.prototype,
-      'title',
-      void 0
-    )
+    __decorate([vuePropertyDecorator.Prop({ type: String })], AmapMark.prototype, 'cursor', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: String })], AmapMark.prototype, 'content', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: String })], AmapMark.prototype, 'title', void 0)
     __decorate(
       [vuePropertyDecorator.Prop({ type: [Object, String] })],
       AmapMark.prototype,
       'icon',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Object })],
-      AmapMark.prototype,
-      'shadow',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop({ type: Object })],
-      AmapMark.prototype,
-      'shape',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Prop()],
-      AmapMark.prototype,
-      'extData',
-      void 0
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('anchor')],
-      AmapMark.prototype,
-      'setAnchor',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('animation')],
-      AmapMark.prototype,
-      'setAnimation',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('clickable')],
-      AmapMark.prototype,
-      'setClickable',
-      null
-    )
+    __decorate([vuePropertyDecorator.Prop({ type: Object })], AmapMark.prototype, 'shadow', void 0)
+    __decorate([vuePropertyDecorator.Prop({ type: Object })], AmapMark.prototype, 'shape', void 0)
+    __decorate([vuePropertyDecorator.Prop()], AmapMark.prototype, 'extData', void 0)
+    __decorate([vuePropertyDecorator.Watch('anchor')], AmapMark.prototype, 'setAnchor', null)
+    __decorate([vuePropertyDecorator.Watch('animation')], AmapMark.prototype, 'setAnimation', null)
+    __decorate([vuePropertyDecorator.Watch('clickable')], AmapMark.prototype, 'setClickable', null)
     __decorate(
       [vuePropertyDecorator.Watch('label', { deep: true })],
       AmapMark.prototype,
       'setLabel',
       null
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('angle')],
-      AmapMark.prototype,
-      'setAngle',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('zIndex')],
-      AmapMark.prototype,
-      'setzIndex',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('draggable')],
-      AmapMark.prototype,
-      'setDraggable',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('cursor')],
-      AmapMark.prototype,
-      'setCursor',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('content')],
-      AmapMark.prototype,
-      'setContent',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('title')],
-      AmapMark.prototype,
-      'setTitle',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('extData')],
-      AmapMark.prototype,
-      'setExtData',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('angle')], AmapMark.prototype, 'setAngle', null)
+    __decorate([vuePropertyDecorator.Watch('zIndex')], AmapMark.prototype, 'setzIndex', null)
+    __decorate([vuePropertyDecorator.Watch('draggable')], AmapMark.prototype, 'setDraggable', null)
+    __decorate([vuePropertyDecorator.Watch('cursor')], AmapMark.prototype, 'setCursor', null)
+    __decorate([vuePropertyDecorator.Watch('content')], AmapMark.prototype, 'setContent', null)
+    __decorate([vuePropertyDecorator.Watch('title')], AmapMark.prototype, 'setTitle', null)
+    __decorate([vuePropertyDecorator.Watch('extData')], AmapMark.prototype, 'setExtData', null)
     __decorate(
       [vuePropertyDecorator.Watch('position', { deep: true })],
       AmapMark.prototype,
@@ -1114,15 +948,9 @@
         range = _b.range,
         getOptions = _b.getOptions,
         index = _b.index
-      var options = __assign(__assign({}, $attrs), {
-        speed: speed,
-        range: range
-      })
+      var options = __assign(__assign({}, $attrs), { speed: speed, range: range })
       if (getOptions) {
-        options = __assign(
-          __assign({}, options),
-          getOptions(PathSimplifier) || {}
-        )
+        options = __assign(__assign({}, options), getOptions(PathSimplifier) || {})
       }
       var num = count
       if (index !== undefined) num = index
@@ -1187,18 +1015,8 @@
       'index',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('speed')],
-      PathNavigator.prototype,
-      'setSpeed',
-      null
-    )
-    __decorate(
-      [vuePropertyDecorator.Watch('range')],
-      PathNavigator.prototype,
-      'setRange',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('speed')], PathNavigator.prototype, 'setSpeed', null)
+    __decorate([vuePropertyDecorator.Watch('range')], PathNavigator.prototype, 'setRange', null)
     PathNavigator = __decorate([vuePropertyDecorator.Component], PathNavigator)
     return PathNavigator
   })(vuePropertyDecorator.Vue)
@@ -1300,12 +1118,7 @@
       'data',
       void 0
     )
-    __decorate(
-      [vuePropertyDecorator.Watch('data')],
-      PathSimplifier.prototype,
-      'dataChange',
-      null
-    )
+    __decorate([vuePropertyDecorator.Watch('data')], PathSimplifier.prototype, 'dataChange', null)
     PathSimplifier = __decorate(
       [
         vuePropertyDecorator.Component({

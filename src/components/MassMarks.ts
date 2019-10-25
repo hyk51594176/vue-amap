@@ -48,8 +48,7 @@ export default class MassMarks extends Vue {
     })
   }
   handleSingleStyleObject: StyleFn<Style> = style => {
-    Array.isArray(style.anchor) &&
-      (style.anchor = new AMap.Pixel(...style.anchor))
+    Array.isArray(style.anchor) && (style.anchor = new AMap.Pixel(...style.anchor))
     Array.isArray(style.size) && (style.size = new AMap.Size(...style.size))
     return style
   }
