@@ -8,8 +8,12 @@
       v-for="marker in markers"
       :key="`${marker.position[0]}_${marker.position[1]}`"
       v-bind="marker"
-      @click="markerClick"
     />
+    <el-amap-pathsimplifier 
+      :data='data'
+      :renderOptions='renderOptions'
+    >
+    </el-amap-pathsimplifier>
   </el-amap>
 </template>
 
@@ -39,11 +43,22 @@ export default {
           },
         }
       ],
-    }
-  },
-  methods: {
-    markerClick (...args) {
-      console.log(args)
+      data: [
+        {
+          name: '轨迹0',
+          path: [
+            [116.340417, 39.1],
+            [120.15, 30.28]
+          ]
+        }
+      ],
+      renderOptions: {
+        pathLineStyle: {
+          strokeStyle: 'red',
+          lineWidth: 6,
+          dirArrowStyle: true
+        }
+      }
     }
   }
 }
