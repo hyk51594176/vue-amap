@@ -89,7 +89,7 @@ export default class AmapMark extends Vue {
         shadow,
         shape,
         position: new AMap.LngLat(...position),
-        offset: Array.isArray(offset) ? new AMap.Pixel(...offset) : offset
+        ...(Array.isArray(offset) ? { offset: new AMap.Pixel(...offset) } : {})
       })
       Object.keys($listeners).forEach(key => {
         this.aMapMarker.on(
