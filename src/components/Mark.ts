@@ -85,7 +85,7 @@ export default class AmapMark extends Vue {
         content,
         title,
         extData,
-        icon: typeof icon !== 'string' ? icon.instance : icon,
+        icon: icon && typeof icon !== 'string' ? icon.instance : icon,
         shadow,
         shape,
         position: new AMap.LngLat(...position),

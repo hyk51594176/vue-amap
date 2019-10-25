@@ -700,7 +700,7 @@
             content: content,
             title: title,
             extData: extData,
-            icon: typeof icon !== 'string' ? icon.instance : icon,
+            icon: icon && typeof icon !== 'string' ? icon.instance : icon,
             shadow: shadow,
             shape: shape,
             position: new ((_e = AMap.LngLat).bind.apply(

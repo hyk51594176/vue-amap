@@ -4,7 +4,14 @@
     :zoom="zoom"
     :center="center"
     @complete="complete"
-  ></el-amap>
+  >
+    <el-amap-maptype/>
+    <el-amap-overview :isOpen="true"/>
+    <el-amap-scale/>
+    <el-amap-toolbar/>
+    <el-amap-controlbar/>
+    <el-amap-control control-name="Geolocation"></el-amap-control>
+  </el-amap>
 </template>
 
 <script>
