@@ -688,32 +688,36 @@
         }
         _this.aMap = aMap
         _this.aMapMarker = new AMap.Marker(
-          __assign(__assign({}, $attrs), {
-            anchor: anchor,
-            animation: animation,
-            clickable: clickable,
-            label: label,
-            angle: angle,
-            zIndex: zIndex,
-            draggable: draggable,
-            cursor: cursor,
-            content: content,
-            title: title,
-            extData: extData,
-            icon: icon && typeof icon !== 'string' ? icon.instance : icon,
-            shadow: shadow,
-            shape: shape,
-            position: new ((_e = AMap.LngLat).bind.apply(
-              _e,
-              __spreadArrays([void 0], position)
-            ))(),
-            offset: Array.isArray(offset)
-              ? new ((_f = AMap.Pixel).bind.apply(
-                  _f,
-                  __spreadArrays([void 0], offset)
-                ))()
-              : offset
-          })
+          __assign(
+            __assign(__assign({}, $attrs), {
+              anchor: anchor,
+              animation: animation,
+              clickable: clickable,
+              label: label,
+              angle: angle,
+              zIndex: zIndex,
+              draggable: draggable,
+              cursor: cursor,
+              content: content,
+              title: title,
+              extData: extData,
+              icon: icon && typeof icon !== 'string' ? icon.instance : icon,
+              shadow: shadow,
+              shape: shape,
+              position: new ((_e = AMap.LngLat).bind.apply(
+                _e,
+                __spreadArrays([void 0], position)
+              ))()
+            }),
+            Array.isArray(offset)
+              ? {
+                  offset: new ((_f = AMap.Pixel).bind.apply(
+                    _f,
+                    __spreadArrays([void 0], offset)
+                  ))()
+                }
+              : {}
+          )
         )
         Object.keys($listeners).forEach(function(key) {
           _this.aMapMarker.on(

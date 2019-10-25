@@ -22,25 +22,13 @@ export default {
       markers: [
         {
           position: [120.15, 30.28],
-          label: { content: '杭州' },
-          icon: {
-            size: [25, 34],
-            image:
-              'http://a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
-            imageSize: [135, 40]
-          }
+          label: { content: '杭州' }
         },
         {
           position: [116.15, 39.28],
-          label: { content: '北京' },
-          icon: {
-            size: [25, 34],
-            image:
-              'http://a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
-            imageSize: [135, 40]
-          }
-        },
-      ]
+          label: { content: '北京' }
+        }
+      ],
     }
   },
   methods: {
