@@ -23,26 +23,7 @@ export default {
     return {
       zoom: 6,
       center: [116.3, 39.1],
-      markers: [
-        {
-          position: [120.15, 30.28],
-          label: { content: '杭州' },
-          icon: {
-            imageSize: [20, 40],
-            size: [20, 40],
-            image: '/car.png'
-          },
-        },
-        {
-          position: [116.15, 39.28],
-          label: { content: '北京' },
-          icon: {
-            imageSize: [20, 40],
-            size: [20, 40],
-            image: '/car.png'
-          },
-        }
-      ],
+      markers: [],
       data: [
         {
           name: '轨迹0',
@@ -60,6 +41,28 @@ export default {
         }
       }
     }
+  },
+  mounted () {
+    this.markers = [
+      {
+        position: [120.15, 30.28],
+        label: { content: '杭州' },
+        icon: {
+          imageSize: [20, 40],
+          size: [20, 40],
+          image: this.$withBase('/car.png')
+        },
+      },
+      {
+        position: [116.15, 39.28],
+        label: { content: '北京' },
+        icon: {
+          imageSize: [20, 40],
+          size: [20, 40],
+          image: this.$withBase('/car.png')
+        },
+      }
+    ]
   }
 }
 </script>

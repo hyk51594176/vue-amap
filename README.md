@@ -18,3 +18,7 @@ Vue.use(vueAmap,{
   UIVersion: '1.0',
 })
 ```
+
+# 文档
+
+[getStart](https://hyk51594176.github.io/vue-amap/)
