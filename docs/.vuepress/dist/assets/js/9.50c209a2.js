@@ -9,23 +9,26 @@
             return {
               zoom: 6,
               center: [116.3, 39.1],
-              markers: [
-                {
-                  position: [120.15, 30.28],
-                  label: { content: '杭州' },
-                  icon: { imageSize: [20, 40], size: [20, 40], image: '/car.png' }
-                },
-                {
-                  position: [116.15, 39.28],
-                  label: { content: '北京' },
-                  icon: { imageSize: [20, 40], size: [20, 40], image: '/car.png' }
-                }
-              ],
+              markers: [],
               data: [{ name: '轨迹0', path: [[116.340417, 39.1], [120.15, 30.28]] }],
               renderOptions: {
                 pathLineStyle: { strokeStyle: 'red', lineWidth: 6, dirArrowStyle: !0 }
               }
             }
+          },
+          mounted: function() {
+            this.markers = [
+              {
+                position: [120.15, 30.28],
+                label: { content: '杭州' },
+                icon: { imageSize: [20, 40], size: [20, 40], image: this.$withBase('/car.png') }
+              },
+              {
+                position: [116.15, 39.28],
+                label: { content: '北京' },
+                icon: { imageSize: [20, 40], size: [20, 40], image: this.$withBase('/car.png') }
+              }
+            ]
           },
           methods: {
             getOptions: function(e) {
@@ -35,7 +38,11 @@
                 pathNavigatorStyle: {
                   width: 20,
                   height: 40,
-                  content: e.Render.Canvas.getImageContent('/car.png', onload, onerror),
+                  content: e.Render.Canvas.getImageContent(
+                    this.$withBase('/car.png'),
+                    onload,
+                    onerror
+                  ),
                   strokeStyle: null,
                   fillStyle: null,
                   pathLinePassedStyle: {
@@ -48,8 +55,8 @@
             }
           }
         },
-        r = n(19),
-        i = Object(r.a)(
+        i = n(19),
+        r = Object(i.a)(
           a,
           function() {
             var e = this,
@@ -82,7 +89,7 @@
           null,
           null
         )
-      t.default = i.exports
+      t.default = r.exports
     }
   }
 ])

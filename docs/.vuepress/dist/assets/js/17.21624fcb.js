@@ -453,11 +453,58 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('[')
                               ]),
-                              t._v('\n        '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(']')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(',')
+                              ]),
+                              t._v('\n    '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('}')
+                              ]),
+                              t._v('\n  '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('}')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(',')
+                              ]),
+                              t._v('\n  '),
+                              s('span', { pre: !0, attrs: { class: 'token function' } }, [
+                                t._v('mounted')
+                              ]),
+                              t._v(' '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('(')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(')')
+                              ]),
+                              t._v(' '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('{')
                               ]),
-                              t._v('\n          position'),
+                              t._v('\n    '),
+                              s('span', { pre: !0, attrs: { class: 'token keyword' } }, [
+                                t._v('this')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('.')
+                              ]),
+                              t._v('markers '),
+                              s('span', { pre: !0, attrs: { class: 'token operator' } }, [
+                                t._v('=')
+                              ]),
+                              t._v(' '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('[')
+                              ]),
+                              t._v('\n      '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('{')
+                              ]),
+                              t._v('\n        position'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -481,7 +528,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n          label'),
+                              t._v('\n        label'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -504,7 +551,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n          icon'),
+                              t._v('\n        icon'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -512,7 +559,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('{')
                               ]),
-                              t._v('\n            imageSize'),
+                              t._v('\n          imageSize'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -536,7 +583,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n            size'),
+                              t._v('\n          size'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -560,20 +607,28 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n            image'),
+                              t._v('\n          image'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
                               t._v(' '),
+                              s('span', { pre: !0, attrs: { class: 'token keyword' } }, [
+                                t._v('this')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('.')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token function' } }, [
+                                t._v('$withBase')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('(')
+                              ]),
                               s('span', { pre: !0, attrs: { class: 'token string' } }, [
                                 t._v("'/car.png'")
                               ]),
-                              t._v('\n          '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
-                                t._v('}')
-                              ]),
-                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
-                                t._v(',')
+                                t._v(')')
                               ]),
                               t._v('\n        '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
@@ -582,11 +637,18 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n        '),
+                              t._v('\n      '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('}')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(',')
+                              ]),
+                              t._v('\n      '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('{')
                               ]),
-                              t._v('\n          position'),
+                              t._v('\n        position'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -610,7 +672,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n          label'),
+                              t._v('\n        label'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -633,7 +695,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n          icon'),
+                              t._v('\n        icon'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -641,7 +703,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('{')
                               ]),
-                              t._v('\n            imageSize'),
+                              t._v('\n          imageSize'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -665,7 +727,7 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n            size'),
+                              t._v('\n          size'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
@@ -689,35 +751,43 @@
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n            image'),
+                              t._v('\n          image'),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(':')
                               ]),
                               t._v(' '),
+                              s('span', { pre: !0, attrs: { class: 'token keyword' } }, [
+                                t._v('this')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('.')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token function' } }, [
+                                t._v('$withBase')
+                              ]),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v('(')
+                              ]),
                               s('span', { pre: !0, attrs: { class: 'token string' } }, [
                                 t._v("'/car.png'")
                               ]),
-                              t._v('\n          '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
-                                t._v('}')
-                              ]),
-                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
-                                t._v(',')
+                                t._v(')')
                               ]),
                               t._v('\n        '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('}')
                               ]),
-                              t._v('\n      '),
-                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
-                                t._v(']')
-                              ]),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v(',')
                               ]),
-                              t._v('\n    '),
+                              t._v('\n      '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
                                 t._v('}')
+                              ]),
+                              t._v('\n    '),
+                              s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [
+                                t._v(']')
                               ]),
                               t._v('\n  '),
                               s('span', { pre: !0, attrs: { class: 'token punctuation' } }, [

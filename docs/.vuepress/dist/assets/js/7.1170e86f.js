@@ -4,24 +4,23 @@
     305: function(e, n, t) {
       'use strict'
       t.r(n)
-      var o = {
+      var i = {
           data: function() {
-            return {
-              zoom: 6,
-              center: [116.3, 39.1],
-              markers: [
-                {
-                  position: [120.15, 30.28],
-                  label: { content: '杭州' },
-                  icon: { imageSize: [20, 40], size: [20, 40], image: '/car.png' }
-                },
-                {
-                  position: [116.15, 39.28],
-                  label: { content: '北京' },
-                  icon: { imageSize: [20, 40], size: [20, 40], image: '/car.png' }
-                }
-              ]
-            }
+            return { zoom: 6, center: [116.3, 39.1], markers: [] }
+          },
+          mounted: function() {
+            this.markers = [
+              {
+                position: [120.15, 30.28],
+                label: { content: '杭州' },
+                icon: { imageSize: [20, 40], size: [20, 40], image: this.$withBase('/car.png') }
+              },
+              {
+                position: [116.15, 39.28],
+                label: { content: '北京' },
+                icon: { imageSize: [20, 40], size: [20, 40], image: this.$withBase('/car.png') }
+              }
+            ]
           },
           methods: {
             markerClick: function() {
@@ -32,8 +31,8 @@
           }
         },
         a = t(19),
-        i = Object(a.a)(
-          o,
+        o = Object(a.a)(
+          i,
           function() {
             var e = this,
               n = e.$createElement,
@@ -61,7 +60,7 @@
           null,
           null
         )
-      n.default = i.exports
+      n.default = o.exports
     }
   }
 ])

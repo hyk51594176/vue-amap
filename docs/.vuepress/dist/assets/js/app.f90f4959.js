@@ -48,24 +48,24 @@
               '.' +
               {
                 2: '38e98623',
-                3: '9e79247b',
+                3: '9d5275db',
                 4: '562562aa',
                 5: '0d22035b',
                 6: '1f156f2e',
-                7: '00417f6d',
+                7: '1170e86f',
                 8: '006ae15c',
-                9: '3eaad9ae',
-                10: '81e66721',
+                9: '50c209a2',
+                10: '4027ee42',
                 11: 'fd4f1bce',
                 12: '9aa7090c',
-                13: '7e3bd3fe',
-                14: '475dd629',
-                15: '4831c737',
+                13: 'a2b04bd7',
+                14: '2be38c95',
+                15: '0aaddd7d',
                 16: 'd2082fa8',
-                17: '5c02e474',
+                17: '21624fcb',
                 18: 'f26fec43',
-                19: '169592d8',
-                20: '1dd1e343',
+                19: '342a4456',
+                20: '834c28a6',
                 21: '36ba7bd8'
               }[e] +
               '.js'
@@ -45008,10 +45008,10 @@
         Layout: () => Promise.all([n.e(0), n.e(2)]).then(n.bind(null, 300))
       },
       He = {
-        'v-16efae28': () => n.e(15).then(n.bind(null, 309)),
-        'v-3683232c': () => n.e(14).then(n.bind(null, 310)),
+        'v-3683232c': () => n.e(14).then(n.bind(null, 309)),
+        'v-a4aba716': () => n.e(13).then(n.bind(null, 310)),
         'v-536d3d8f': () => n.e(12).then(n.bind(null, 311)),
-        'v-a4aba716': () => n.e(13).then(n.bind(null, 312)),
+        'v-16efae28': () => n.e(15).then(n.bind(null, 312)),
         'v-64bcfbcc': () => n.e(16).then(n.bind(null, 313)),
         'v-ce20bf68': () => n.e(18).then(n.bind(null, 314)),
         'v-b2ea9b84': () => n.e(17).then(n.bind(null, 315)),
@@ -45230,14 +45230,6 @@
     })(gt, 'mixins', ft)
     const yt = [
         {
-          name: 'v-16efae28',
-          path: '/guide/info-window.html',
-          component: gt,
-          beforeEnter: (e, t, n) => {
-            at('Layout', 'v-16efae28').then(n)
-          }
-        },
-        {
           name: 'v-3683232c',
           path: '/guide/control.html',
           component: gt,
@@ -45245,6 +45237,15 @@
             at('Layout', 'v-3683232c').then(n)
           }
         },
+        {
+          name: 'v-a4aba716',
+          path: '/guide/',
+          component: gt,
+          beforeEnter: (e, t, n) => {
+            at('Layout', 'v-a4aba716').then(n)
+          }
+        },
+        { path: '/guide/index.html', redirect: '/guide/' },
         {
           name: 'v-536d3d8f',
           path: '/',
@@ -45255,14 +45256,13 @@
         },
         { path: '/index.html', redirect: '/' },
         {
-          name: 'v-a4aba716',
-          path: '/guide/',
+          name: 'v-16efae28',
+          path: '/guide/info-window.html',
           component: gt,
           beforeEnter: (e, t, n) => {
-            at('Layout', 'v-a4aba716').then(n)
+            at('Layout', 'v-16efae28').then(n)
           }
         },
-        { path: '/guide/index.html', redirect: '/guide/' },
         {
           name: 'v-64bcfbcc',
           path: '/guide/map.html',
@@ -45311,18 +45311,6 @@
         base: '/vue-amap/',
         pages: [
           {
-            title: 'infoWindow',
-            frontmatter: { title: 'infoWindow' },
-            regularPath: '/guide/info-window.html',
-            relativePath: 'guide/info-window.md',
-            key: 'v-16efae28',
-            path: '/guide/info-window.html',
-            headers: [
-              { level: 2, title: '参数配置', slug: '参数配置' },
-              { level: 2, title: '示例', slug: '示例' }
-            ]
-          },
-          {
             title: 'control',
             frontmatter: { title: 'control' },
             regularPath: '/guide/control.html',
@@ -45332,6 +45320,18 @@
             headers: [
               { level: 2, title: '参数配置', slug: '参数配置' },
               { level: 2, title: '示例', slug: '示例' }
+            ]
+          },
+          {
+            title: '介绍',
+            frontmatter: {},
+            regularPath: '/guide/',
+            relativePath: 'guide/README.md',
+            key: 'v-a4aba716',
+            path: '/guide/',
+            headers: [
+              { level: 2, title: '安装', slug: '安装' },
+              { level: 2, title: '内置处理', slug: '内置处理' }
             ]
           },
           {
@@ -45365,15 +45365,15 @@
             path: '/'
           },
           {
-            title: '介绍',
-            frontmatter: {},
-            regularPath: '/guide/',
-            relativePath: 'guide/README.md',
-            key: 'v-a4aba716',
-            path: '/guide/',
+            title: 'infoWindow',
+            frontmatter: { title: 'infoWindow' },
+            regularPath: '/guide/info-window.html',
+            relativePath: 'guide/info-window.md',
+            key: 'v-16efae28',
+            path: '/guide/info-window.html',
             headers: [
-              { level: 2, title: '安装', slug: '安装' },
-              { level: 2, title: '内置处理', slug: '内置处理' }
+              { level: 2, title: '参数配置', slug: '参数配置' },
+              { level: 2, title: '示例', slug: '示例' }
             ]
           },
           {
@@ -46841,7 +46841,7 @@ and limitations under the License.
         router: n
       }
     })(!1)
-    ;(window.__VUEPRESS__ = { version: '1.2.0', hash: '770931b' }),
+    ;(window.__VUEPRESS__ = { version: '1.2.0', hash: 'aa0690d' }),
       Cn.onReady(() => {
         wn.$mount('#app')
       })
