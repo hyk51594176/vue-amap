@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = {
   title: 'Vue-Amap',
   description: '基于高德地图封装vue组件',
+  base: '/vue-amap/',
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/' },
